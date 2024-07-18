@@ -10,7 +10,7 @@ public func configure(_ app: Application) async throws {
 
     app.http.server.configuration.address = .hostname("0.0.0.0", port: 8080)
     app.databases.use(DatabaseConfigurationFactory.postgres(configuration: .init(
-        hostname: Environment.get("DATABASE_HOST") ?? "158.160.169.81",
+        hostname: Environment.get("DATABASE_HOST") ?? "51.250.35.10",
         port: Environment.get("DATABASE_PORT").flatMap(Int.init(_:)) ?? SQLPostgresConfiguration.ianaPortNumber,
         username: Environment.get("DATABASE_USERNAME") ?? "plantpal_username",
         password: Environment.get("DATABASE_PASSWORD") ?? "plantpal_password",
