@@ -18,11 +18,11 @@ public func configure(_ app: Application) async throws {
         tls: .prefer(try .init(configuration: .clientDefault)))
     ), as: .psql)
 
-    app.migrations.add(Filling())
     app.migrations.add(CreateDisease())
     app.migrations.add(CreateDrug())
     app.migrations.add(CreateUser())
     app.migrations.add(CreatePlant())
+    app.migrations.add(Filling())
     
     try await app.autoMigrate().get()
     
