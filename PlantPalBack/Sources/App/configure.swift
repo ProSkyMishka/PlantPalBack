@@ -8,9 +8,9 @@ public func configure(_ app: Application) async throws {
     // uncomment to serve files from /Public folder
     // app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
 
-    app.http.server.configuration.address = .hostname("89.169.163.3", port: 8080)
+    app.http.server.configuration.address = .hostname("0.0.0.0", port: 8080)
     app.databases.use(DatabaseConfigurationFactory.postgres(configuration: .init(
-        hostname: Environment.get("") ?? "89.169.163.3",
+        hostname: Environment.get("DATABASE_HOST") ?? "0.0.0.0",
         port: Environment.get("DATABASE_PORT").flatMap(Int.init(_:)) ?? SQLPostgresConfiguration.ianaPortNumber,
         username: Environment.get("DATABASE_USERNAME") ?? "plantpal_username",
         password: Environment.get("DATABASE_PASSWORD") ?? "plantpal_password",
@@ -22,6 +22,7 @@ public func configure(_ app: Application) async throws {
     app.migrations.add(CreateDrug())
     app.migrations.add(CreateUser())
     app.migrations.add(CreatePlant())
+    app.migrations.add(CreateDates())
     app.migrations.add(Filling())
     
     try await app.autoMigrate().get()
